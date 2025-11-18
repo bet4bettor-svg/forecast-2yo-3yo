@@ -115,7 +115,8 @@ const Forecast2yo3yo = () => {
     return inv;
   };
 
-  const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(forecastData) : null, [forecastData, calculateForecastModelStats]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(forecastData) : null, [forecastData]);
 
   const residualsForecast = useMemo(() => {
     if (!forecastData || !statsForecast) return [];
