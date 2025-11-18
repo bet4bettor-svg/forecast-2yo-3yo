@@ -8,7 +8,7 @@ const Forecast2yo3yo = () => {
     slAvg2yo: 7.5,
     distance2yo: 7.0
   });
-  const [forecastData, setForecastData] = useState(defaultForecastData);
+  const [forecastData] = useState(defaultForecastData);
 
   const calculateForecastModelStats = (dataset) => {
     const n = dataset.length;
@@ -115,7 +115,7 @@ const Forecast2yo3yo = () => {
     return inv;
   };
 
-  const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(forecastData) : null, [forecastData]);
+  const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(forecastData) : null, [forecastData, calculateForecastModelStats]);
 
   const residualsForecast = useMemo(() => {
     if (!forecastData || !statsForecast) return [];
