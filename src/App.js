@@ -248,7 +248,7 @@ const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(f
                       step="0.01" 
                       value={predictInputs.spsAvg2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, spsAvg2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
                     />
                   </div>
                   <div>
@@ -258,7 +258,7 @@ const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(f
                       step="0.01" 
                       value={predictInputs.slAvg2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, slAvg2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
                     />
                   </div>
                   <div>
@@ -268,7 +268,7 @@ const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(f
                       step="0.5" 
                       value={predictInputs.distance2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, distance2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
                     />
                   </div>
                 </div>
