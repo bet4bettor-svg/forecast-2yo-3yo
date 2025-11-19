@@ -242,33 +242,33 @@ const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(f
               <>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px', marginBottom: '12px' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50' }}>2yo Average SPS (Hz)</label>
+                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50', minHeight: '32px' }}>2yo Average SPS (Hz)</label>
                     <input 
                       type="number" 
                       step="0.01" 
                       value={predictInputs.spsAvg2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, spsAvg2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50' }}>2yo Average SL (m)</label>
+                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50', minHeight: '32px' }}>2yo Average SL (m)</label>
                     <input 
                       type="number" 
                       step="0.01" 
                       value={predictInputs.slAvg2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, slAvg2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50' }}>2yo Race Dist (f)</label>
+                    <label style={{ display: 'block', fontSize: '12px', marginBottom: '4px', color: '#2C3E50', minHeight: '32px' }}>2yo Race Dist (f)</label>
                     <input 
                       type="number" 
                       step="0.5" 
                       value={predictInputs.distance2yo} 
                       onChange={(e) => setPredictInputs({...predictInputs, distance2yo: parseFloat(e.target.value)})} 
-                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px', height: '38px' }}
+                      style={{ width: '100%', padding: '8px', border: '1px solid #ddd', borderRadius: '4px', fontSize: '14px' }}
                     />
                   </div>
                 </div>
