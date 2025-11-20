@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { defaultForecastData } from './data/trainingData';
 
 const Forecast2yo3yo = () => {
-  const [view, setView] = useState('model-stats');
+  const [view, setView] = useState('predict');
   const [predictInputs, setPredictInputs] = useState({
     spsAvg2yo: 2.30,
     slAvg2yo: 7.5,
@@ -147,36 +147,36 @@ const statsForecast = useMemo(() => forecastData ? calculateForecastModelStats(f
           </p>
         </div>
 
-        <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '16px', marginBottom: '24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-            <button 
-              onClick={() => setView('model-stats')} 
-              style={{
-                padding: '16px',
-                borderRadius: '8px',
-                border: view === 'model-stats' ? '2px solid #3498DB' : '2px solid #ddd',
-                background: view === 'model-stats' ? '#E3F2FD' : '#f9f9f9',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#2C3E50' }}>📈 2yo → 3yo Model Stats</div>
-            </button>
-            
-            <button 
-              onClick={() => setView('predict')} 
-              style={{
-                padding: '16px',
-                borderRadius: '8px',
-                border: view === 'predict' ? '2px solid #E67E22' : '2px solid #ddd',
-                background: view === 'predict' ? '#FFF3E0' : '#f9f9f9',
-                cursor: 'pointer',
-                transition: 'all 0.2s'
-              }}
-            >
-              <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#2C3E50' }}>🎯 Predict 2yo → 3yo Optimal Distance</div>
-            </button>
-          </div>
+        <div style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
+          <button 
+            onClick={() => setView('predict')} 
+            style={{
+              flex: 1,
+              padding: '16px',
+              borderRadius: '8px',
+              border: view === 'predict' ? '2px solid #E67E22' : '2px solid #ddd',
+              background: view === 'predict' ? '#FFF3E0' : '#f9f9f9',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#2C3E50' }}>🎯 Predict 2yo → 3yo Optimal Distance</div>
+          </button>
+          
+          <button 
+            onClick={() => setView('model-stats')} 
+            style={{
+              flex: 1,
+              padding: '16px',
+              borderRadius: '8px',
+              border: view === 'model-stats' ? '2px solid #3498DB' : '2px solid #ddd',
+              background: view === 'model-stats' ? '#E3F2FD' : '#f9f9f9',
+              cursor: 'pointer',
+              transition: 'all 0.2s'
+            }}
+          >
+            <div style={{ fontSize: '14px', fontWeight: 'bold', color: '#2C3E50' }}>📈 2yo → 3yo Model Stats</div>
+          </button>
         </div>
 
         {view === 'model-stats' && (
