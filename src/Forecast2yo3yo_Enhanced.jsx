@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default () => {
+const Forecast2yo3yoEnhanced = () => {
   const [view, setView] = useState('predict');
   const [predictInputs, setPredictInputs] = useState({
     spsAvg: 2.30,
@@ -287,3 +287,4 @@ export default () => {
     </div>
   );
 };
+export default Forecast2yo3yoEnhanced;
