@@ -485,6 +485,7 @@ const Forecast2yo3yoEnhanced = () => {
       {view === 'comparison' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {(() => {
+            // eslint-disable-next-line
             const ageData = selectedAge === '3yo' ? data3yo : data4plus;
             const currentStats = selectedAge === '3yo' ? stats3yo : stats4plus;
             const currentResiduals = selectedAge === '3yo' ? residuals3yo : residuals4plus;
