@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { defaultForecastData } from './data/trainingData';
 
-export default () => {
+const Forecast2yo3yoEnhanced = () => {
   const [view, setView] = useState('import');
   const [selectedAge, setSelectedAge] = useState('4plus');
   const [predictInputs, setPredictInputs] = useState({
@@ -931,3 +931,4 @@ export default () => {
   </div>
   );
 };
+export default Forecast2yo3yoEnhanced;
