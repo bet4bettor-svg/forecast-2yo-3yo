@@ -398,7 +398,7 @@ const Forecast2yo3yoEnhanced = () => {
 
             <div style={styles.resultBox}>
               <p style={styles.resultLabel}>Predicted 3-Year-Old Optimal Distance</p>
-              <p style={styles.resultValue}>{finalPrediction.toFixed(1)}f</p>
+              <p style={styles.resultValue}>{finalPrediction.toFixed(1)}f ({convertToRaceDistance(finalPrediction)})</p>
               <p style={styles.resultSubtext}>
                 R²: {(modelRSquared * 100).toFixed(1)}% • Sample Size: {modelN} horses
               </p>
