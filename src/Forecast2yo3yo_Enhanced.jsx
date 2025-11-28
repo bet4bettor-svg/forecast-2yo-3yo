@@ -13,14 +13,14 @@ const Forecast2yo3yoEnhanced = () => {
 
   // Model B coefficients
   const modelCoefficients = {
-    intercept: 42.7553,
-    spsAvg: -14.5569,
-    slAvg: -0.8917,
-    distance2yo: 0.8062
-  };
-  
-  const modelRSquared = 0.775;
-  const modelN = 159;
+  intercept: 34.2380,
+  spsAvg: -12.2353,
+  slAvg: -0.6289,
+  distance2yo: 0.9820
+};
+
+const modelRSquared = 0.777;
+const modelN = 238;
 
   const convertToRaceDistance = (furlongs) => {
     const distances = [
