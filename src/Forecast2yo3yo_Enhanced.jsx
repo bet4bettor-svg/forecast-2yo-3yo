@@ -218,6 +218,7 @@ const Forecast2yo3yoEnhanced = () => {
   };
 
   // Calculate Min SPS adjustment with SMOOTH gradients and 10.5f cutoff
+  // Optimized with 30% reduced amounts for better balance
   const getMinSPSAdjustment = (basePrediction, minSPS) => {
     // CUTOFF: Only apply adjustment for stamina predictions
     if (basePrediction < 10.5) {
@@ -227,24 +228,21 @@ const Forecast2yo3yoEnhanced = () => {
     let thresholds;
     if (basePrediction < 11) {
       thresholds = [
-        [2.08, 3.0],
-        [2.13, 1.8],
-        [2.18, 1.0],
-        [2.30, 0.5]
+        [2.08, 2.1],
+        [2.13, 1.26],
+        [2.17, 0.7]
       ];
     } else if (basePrediction < 13) {
       thresholds = [
-        [2.08, 1.8],
-        [2.13, 1.0],
-        [2.18, 0.7],
-        [2.30, 0.3]
+        [2.08, 1.26],
+        [2.13, 0.7],
+        [2.17, 0.49]
       ];
     } else {
       thresholds = [
-        [2.08, 0.7],
-        [2.13, 0.4],
-        [2.18, 0.2],
-        [2.30, 0.0]
+        [2.08, 0.49],
+        [2.13, 0.28],
+        [2.17, 0.14]
       ];
     }
     
@@ -253,7 +251,7 @@ const Forecast2yo3yoEnhanced = () => {
     }
     
     if (minSPS >= thresholds[thresholds.length - 1][0]) {
-      return thresholds[thresholds.length - 1][1];
+      return 0; // Hard stop at 2.17 - speed horses don't need stamina boost
     }
     
     for (let i = 0; i < thresholds.length - 1; i++) {
