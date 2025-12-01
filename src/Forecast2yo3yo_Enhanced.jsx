@@ -64,7 +64,7 @@ const Forecast2yo3yoEnhanced = () => {
       transition: 'all 0.2s'
     },
     buttonActive: {
-      backgroundColor: '#10b981',
+      backgroundColor: '#2C3E50',
       color: 'white'
     },
     buttonInactive: {
