@@ -369,7 +369,7 @@ const Forecast2yo3yoEnhanced = () => {
               </div>
 
               <div style={styles.inputFull}>
-                <label style={styles.label}>2yo Optimal Distance (furlongs)</label>
+                <label style={styles.label}>2yo Race Distance (furlongs)</label>
                 <input
                   type="number"
                   step="0.5"
