@@ -6,8 +6,7 @@ const Forecast2yo3yo = () => {
     spsAvg: 2.30,
     slAvg: 7.5,
     distance2yo: 7.0,
-    minSPS: 2.18,
-    goingGtS: false
+    minSPS: 2.18
   });
  
   // Pool 1 coefficients (n=382, R²=80.33%)
@@ -21,7 +20,6 @@ const Forecast2yo3yo = () => {
  
   const modelRSquared = 0.8033;
   const modelN = 382;
-  const gtsCorrection = -0.441;
  
   const styles = {
     container: {
@@ -41,20 +39,19 @@ const Forecast2yo3yo = () => {
     card: { backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', padding: '24px' },
     cardTitle: { fontSize: '20px', fontWeight: 'bold', marginBottom: '16px', color: '#1f2937' },
     inputGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' },
-    inputFull: { marginBottom: '16px' },
     label: { display: 'block', fontSize: '14px', fontWeight: '600', marginBottom: '4px', color: '#374151' },
     input: { width: '100%', padding: '8px 12px', border: '2px solid #e5e7eb', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box' },
-    select: { width: '100%', padding: '8px 12px', border: '2px solid #e5e7eb', borderRadius: '8px', fontSize: '14px', boxSizing: 'border-box', background: 'white' },
     resultBox: { background: '#e0f2fe', border: '3px solid #0ea5e9', borderRadius: '12px', padding: '24px', textAlign: 'center', marginBottom: '16px' },
     resultLabel: { fontSize: '14px', color: '#64748b', marginBottom: '8px' },
     resultValue: { fontSize: '72px', fontWeight: 'bold', color: '#0ea5e9', lineHeight: '1', marginBottom: '16px' },
+    verdict: { fontSize: '15px', fontWeight: '600', color: '#2C3E50', marginBottom: '12px' },
     footer: { textAlign: 'center', fontSize: '12px', color: '#9ca3af', marginTop: '16px' },
     statsGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '24px' },
     statBox: { background: '#e0f2fe', border: '3px solid #0ea5e9', borderRadius: '12px', padding: '24px', textAlign: 'center' },
     statLabel: { fontSize: '14px', color: '#64748b', marginBottom: '8px' },
     statValue: { fontSize: '48px', fontWeight: 'bold', color: '#0ea5e9', lineHeight: '1' },
     infoText: { fontSize: '14px', color: '#4b5563', lineHeight: '1.6', marginBottom: '12px' },
-    correctionTag: { display: 'inline-block', fontSize: '12px', padding: '4px 10px', borderRadius: '12px', marginTop: '8px' },
+    correctionTag: { display: 'inline-block', fontSize: '12px', padding: '4px 10px', borderRadius: '12px', marginTop: '8px', marginRight: '8px', background: '#dbeafe', color: '#1e40af' },
     limitationBox: { background: '#fffbeb', border: '1px solid #f59e0b', borderRadius: '8px', padding: '16px', marginTop: '16px' },
     limitationTitle: { fontSize: '16px', fontWeight: '600', color: '#92400e', marginBottom: '8px' },
     limitationText: { fontSize: '13px', color: '#78350f', lineHeight: '1.6', margin: '4px 0' },
@@ -95,13 +92,18 @@ const Forecast2yo3yo = () => {
     modelCoefficients.spsSquared * predictInputs.spsAvg * predictInputs.spsAvg;
  
   const minSPSAdjustment = getMinSPSAdjustment(basePrediction, predictInputs.minSPS);
-  const goingAdjustment = predictInputs.goingGtS ? gtsCorrection : 0;
-  const finalPrediction = basePrediction + minSPSAdjustment + goingAdjustment;
+  const finalPrediction = basePrediction + minSPSAdjustment;
+ 
+  // Plain-language verdict, based on what past horses in each band went on to do at 3
+  const verdict =
+    finalPrediction < 7.5  ? 'Sprinter' :
+    finalPrediction < 9.5  ? 'Miler, may get 10f — 12f very unlikely' :
+    finalPrediction < 10.5 ? 'Stamina untested — most likely 10f; 1 in 4 stays 11–12f, 1 in 5 drops to a mile' :
+                             'Stayer — right about 4 times in 5';
  
   // Corrections applied labels
   const corrections = [];
   if (minSPSAdjustment !== 0) corrections.push(`Min SPS: ${minSPSAdjustment > 0 ? '+' : ''}${minSPSAdjustment.toFixed(2)}f`);
-  if (goingAdjustment !== 0) corrections.push(`GtS: ${goingAdjustment.toFixed(2)}f`);
  
   return (
     <div style={styles.container}>
@@ -145,9 +147,8 @@ const Forecast2yo3yo = () => {
  
             <div>
               <p style={styles.infoText}>
-                Trained on {modelN} horses achieving {(modelRSquared * 100).toFixed(1)}% R² accuracy. 
-                Predictions include automatic corrections for stayer pace profiles (Min SPS) and 
-                Good to Soft ground conditions (−0.44f adjustment).
+                Trained on {modelN} horses achieving {(modelRSquared * 100).toFixed(1)}% R² accuracy.
+                Predictions include an automatic correction for stayer pace profiles (Min SPS).
               </p>
             </div>
  
@@ -179,7 +180,7 @@ const Forecast2yo3yo = () => {
                 <input
                   type="number" step="0.01"
                   value={predictInputs.spsAvg}
-                  onChange={(e) => setPredictInputs({...predictInputs, spsAvg: parseFloat(e.target.value) || 0})}
+                  onChange={(e) => setPredictInputs({ ...predictInputs, spsAvg: parseFloat(e.target.value) || 0 })}
                   style={styles.input}
                 />
               </div>
@@ -188,7 +189,7 @@ const Forecast2yo3yo = () => {
                 <input
                   type="number" step="0.01"
                   value={predictInputs.slAvg}
-                  onChange={(e) => setPredictInputs({...predictInputs, slAvg: parseFloat(e.target.value) || 0})}
+                  onChange={(e) => setPredictInputs({ ...predictInputs, slAvg: parseFloat(e.target.value) || 0 })}
                   style={styles.input}
                 />
               </div>
@@ -200,52 +201,33 @@ const Forecast2yo3yo = () => {
                 <input
                   type="number" step="0.5"
                   value={predictInputs.distance2yo}
-                  onChange={(e) => setPredictInputs({...predictInputs, distance2yo: parseFloat(e.target.value) || 0})}
+                  onChange={(e) => setPredictInputs({ ...predictInputs, distance2yo: parseFloat(e.target.value) || 0 })}
                   style={styles.input}
                 />
               </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end', paddingBottom: '4px' }}>
-                <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', fontSize: '14px', fontWeight: '600', color: '#374151', gap: '8px' }}>
-                  <input
-                    type="checkbox"
-                    checked={predictInputs.goingGtS}
-                    onChange={(e) => setPredictInputs({...predictInputs, goingGtS: e.target.checked})}
-                    style={{ width: '18px', height: '18px', cursor: 'pointer' }}
-                  />
-                  2yo race on Good to Soft?
-                </label>
+              <div>
+                <label style={styles.label}>Min SPS (Hz)</label>
+                <input
+                  type="number" step="0.01"
+                  value={predictInputs.minSPS}
+                  onChange={(e) => setPredictInputs({ ...predictInputs, minSPS: parseFloat(e.target.value) || 0 })}
+                  style={styles.input}
+                />
               </div>
-            </div>
- 
-            <div style={{ marginBottom: '16px' }}>
-              <label style={styles.label}>Min SPS (Hz)</label>
-              <input
-                type="number" step="0.01"
-                value={predictInputs.minSPS}
-                onChange={(e) => setPredictInputs({...predictInputs, minSPS: parseFloat(e.target.value) || 0})}
-                style={{...styles.input, maxWidth: 'calc(50% - 6px)'}}
-              />
             </div>
  
             <div style={styles.resultBox}>
               <div style={styles.resultLabel}>Predicted 3-Year-Old Optimal Distance</div>
               <div style={styles.resultValue}>{finalPrediction.toFixed(1)}f</div>
+              <div style={styles.verdict}>{verdict}</div>
  
               {corrections.length > 0 && (
                 <div style={{ marginBottom: '12px' }}>
                   {corrections.map((c, i) => (
-                    <span key={i} style={{
-                      ...styles.correctionTag,
-                      background: c.includes('GtS') ? '#fef3c7' : '#dbeafe',
-                      color: c.includes('GtS') ? '#92400e' : '#1e40af',
-                      marginRight: '8px'
-                    }}>
-                      {c}
-                    </span>
+                    <span key={i} style={styles.correctionTag}>{c}</span>
                   ))}
                 </div>
               )}
- 
             </div>
  
             <div style={styles.footer}>
