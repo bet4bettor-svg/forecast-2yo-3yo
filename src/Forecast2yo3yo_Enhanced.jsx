@@ -91,15 +91,17 @@ const Forecast2yo3yo = () => {
     modelCoefficients.distance2yo * predictInputs.distance2yo +
     modelCoefficients.spsSquared * predictInputs.spsAvg * predictInputs.spsAvg;
  
-  const minSPSAdjustment = getMinSPSAdjustment(basePrediction, predictInputs.minSPS);
+  // Half-strength: the full table pushed stayers ~0.5f too long
+  const MIN_SPS_SCALE = 0.5;
+  const minSPSAdjustment = MIN_SPS_SCALE * getMinSPSAdjustment(basePrediction, predictInputs.minSPS);
   const finalPrediction = basePrediction + minSPSAdjustment;
  
   // Plain-language verdict, based on what past horses in each band went on to do at 3
   const verdict =
-    finalPrediction < 7.5  ? 'Sprinter' :
-    finalPrediction < 9.5  ? 'Miler, may get 10f — 12f very unlikely' :
-    finalPrediction < 10.5 ? 'Stamina untested — most likely 10f; 1 in 4 stays 11–12f, 1 in 5 drops to a mile' :
-                             'Stayer — right about 4 times in 5';
+    finalPrediction < 7.5  ? 'Most effective sprinting' :
+    finalPrediction < 9.5  ? 'Most effective around a mile — 12f looks beyond his optimal' :
+    finalPrediction < 10.5 ? 'Optimal not yet clear — most likely 10f; 1 in 4 most effective at 11–12f, 1 in 5 at a mile' :
+                             'Most effective at 11f+ — right about 4 times in 5';
  
   // Corrections applied labels
   const corrections = [];
@@ -161,7 +163,7 @@ const Forecast2yo3yo = () => {
                 ⚑ Stayers with moderate SPS profiles (base prediction 9.5–10.5f) may under-predict by 1–2f. The stride data cannot reliably separate a 10f horse from a 12f horse when both stride similarly as two-year-olds.
               </p>
               <p style={styles.limitationText}>
-                ⚑ Extreme stayer predictions (13f+) carry wider error margins due to limited training observations at these distances.
+                ⚑ Stayer predictions of 13f+ tend to run about 1f long and carry wider error margins. Read as 'stayer', not an exact trip.
               </p>
               <p style={styles.limitationText}>
                 ⚑ Predictions from high-geometry tracks (Chester, Bath) or Kempton AW at 8f+ carry additional uncertainty from surface/track distortion of stride data.
